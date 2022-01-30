@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<style type="text/css">
+  body {
+	background: linear-gradient(45deg, #80FFDB, #5390D9);
+	  }
+  h5{
+	  text-align: center;
+	  color: blue;
+  }	
+  th{	  
+	color: black;  
+  }  
+  .card-signin {
+	  width: 100%;
+	  max-width: 1200px;
+	  padding: 15px;
+	  height: 1200px;
+	  margin: auto;
+  }
+  #id_mobile{
+	  max-width: 200px;
+  }
+  .form-signin input[type="password"] {
+    margin-bottom: -1px;
+	margin-top: 5px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+	width:330px;
+	height:40px;
+  }
+  .container{
+	width: 100%;
+	max-width: 1200px;	
+	height: 400px;
+	margin-left: 90px;  
+  }
+  th{
+	  width:350px;
+  }  
+  .table{
+	  width:900px;
+  }
+</style>
+
+ 
+
+<div class="container-fluid">
+	<div class="row justify-content-center">
+		<div class="card card-signin">
+		  <div class="card-body">
+		    <form action="" class="form-signin" method="POST">
+				{% csrf_token %}
+<!-- 				
+				<div class="d-flex flex-column pb-3">
+				    <img class="d-block" style="width: 750px;" src="{% static 'codingwithmitch/cas.png' %}" alt="ju logo">
+					<h4 style="text-align: right;">{{ form.username }}</h4>	
+				</div>
+
+				 -->
+				<div style="height:35px;width:1133px;background-color:blue" >
+					<h4 style="color:white;text-align:center">Application For Promotion of University Teachers Under CAS</h4>
+				</div>
+				<br>
+				<div>
+					<h4 >Stage / Designation :&nbsp&nbsp&nbsp&nbsp From : {{form.from_dsg}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp To : {{form.to_dsg}}</h4>
+				</div>
+				<br>
+
+				<div style="height:35px;width:1133px;background-color:blue" >
+					<h4 style="color:white;text-align:left">Part A : General Information
+					</h4>
+				</div>
+				<br>
+				<div class="container">
+					<table class="table table-striped">						
+						<tr>
+							<th>1. Full Name</th>
+							<td>{{form.username}}</td>
+						</tr>
+						<tr>
+							<th>2. Father's Name / Mother's Name </th>
+							<td>{{form.parent}}</td>
+						</tr>
+						<tr>
+							<th>3. Date of Birth</th>
+							<td>{{form.dt_ob}}</td>
+						</tr>
+						<tr>
+							<th>4. Category</th>
+							<td>{{form.catg}}</td>
+						</tr>
+						<tr>
+							<th>5. Department/School</th>
+							<td>{{form.Department}}</td>
+						</tr>
+						<tr>
+							<th>6. Current designation</th>
+							<td>{{form.Designation}}</td>
+						</tr>
+						<tr>
+							<th>7. Academic Grade Pay (AGP)</th>
+							<td>{{form.agp}}</td>
+						</tr>
+						<tr>
+							<th>8. Date of last promotion , if any</th>
+							<td>{{form.dt_last_promo}}</td>
+						</tr>
+						<tr>
+							<th>9. Date of eligibility for promotion</th>
+							<td>{{form.dt_eligibility}}</td>
+						</tr>
+						<tr>
+							<th>10. Address for correspondence</th>
+							<td>{{form.addr_corres}}</td>
+						</tr>
+						<tr>
+							<th>11. Permanent Address</th>
+							<td>{{form.addr_perm}}</td>
+						</tr>
+						<tr>
+							<th>12. Mobile No.</th>
+							<td>{{form.mobile}}</td>
+						</tr>
+						<tr>
+							<th>13. E-mail Id</th>
+							<td>{{form.email}}</td>
+						</tr>
+					</table>
+
+
+<!-- 					
+					<div class="row">
+						<div class="col-md-12 h6">
+							<h4>Full Name :{{form.username}}</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12 h6">
+							{{form.parent}}
+						</div>
+					</div> -->
+<!-- 
+					<table>
+
+						{% for field in form %}
+							{% if field != "from_dsg" %}							
+								<tr><td>{{ field|as_crispy_field }}</td></tr>							
+							{% endif %}
+						{% endfor %}
+
+					</table>
+					 -->
+<!-- 
+					<table>
+
+						{% for field in form %}
+							{% if field != "from_dsg" %}
+							<tr><td>{{ field }}</td></tr>
+							{% endif %}
+						{% endfor %}
+						
+					</table> -->
+
+				</div>
+				{% for error in field.errors %}
+				<p style="color: red">{{ error }}</p>
+				{% endfor %}
+
+			</form>	
+		</div>
+		</div>
+		</div>
+		</div>		
+
+
+{% endblock content %}

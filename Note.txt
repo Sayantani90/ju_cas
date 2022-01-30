@@ -1,0 +1,4 @@
+prepopulate current_dsg with designation in class model
+prepopulate addr_perma with addr_corres in class model
+pip install -r requirements.txt "for full installation of pip"
+https://github.com/Sayantani90/ju_cas.git

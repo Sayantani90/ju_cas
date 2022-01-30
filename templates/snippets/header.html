@@ -1,0 +1,141 @@
+{% load static %}
+<style>
+	a {
+		text-decoration: none;
+	}
+	.navbar-brand {
+		transform: translateX(-50%);
+		left: 50%;
+		position: absolute;
+		
+	  }
+	.nav{
+		background-color: rgb(6, 6, 48);	
+	}  
+	.dropdown-container {
+		display: none;
+		background-color: rgb(8, 8, 70);
+		padding-left: 8px;
+	}
+	  
+</style>
+
+<!-- Header -->
+<div class="d-flex flex-column flex-lg-row p-3 px-md-4 mb-3 text-white bg-blue border-bottom shadow-sm">
+
+	<!-- MEDIUM+ SCREENS -->
+	<div class="d-none d-md-flex flex-row my-auto flex-grow-1 align-items-center">
+<!--  		
+		{% if request.user.is_authenticated %}
+			<a href="{% url 'home' %}">
+				<img class="account-image  rounded-circle"  
+				style="width: 90px;" src="{% static 'codingwithmitch/ju_logo.jpg' %}" alt="codingwithmitch logo" width="72" height="40">
+		        
+			</a>
+		{% else %}
+			<img class="account-image  rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+			style="width: 90px;" src="{% static 'codingwithmitch/ju_logo.jpg' %}" alt="codingwithmitch logo" width="72" height="40">
+		{% endif %}
+
+		 -->
+<!-- 
+		<form class="search-bar justify-content-start">
+			<input type="text" class="form-control" name="q" id="id_q_large" placeholder="Search...">
+		</form> -->
+
+		<div class="navbar-brand" >
+			<!-- <h1 style="padding-top: 25px; line-height : 20px">JU Accreditation Management System</h1> -->
+	
+			    {% if request.user.is_authenticated %}		
+				   <h1 style="padding-top: 25px; line-height : 20px">Application for Career Advancement Scheme (CAS)</h1>
+				   <p class="text-center">Welcome, {{ request.user.username }}.</p>
+				{% else %}
+						
+					<h2>Application for Career Advancement Scheme (CAS)</h2>
+				
+				{% endif %}
+		</div>
+
+		<div class="d-flex flex-row-reverse flex-grow-1">
+			<nav>
+				{% if request.user.is_authenticated %}
+					
+					<div class="dropdown dropleft show p-2">
+						
+						<div class="d-flex flex-row">						
+							<a class="p-2 text-warning" href="{% url 'password_change' %}">Change Password</a>&nbsp&nbsp&nbsp
+							<a class="p-2 text-warning" href="{% url 'account:view' user_id=request.user.id %}">Account</a>
+							<a class="p-2 text-warning" href="{% url 'logout' %}">Logout</a>
+							
+						</div>
+						
+					</div>
+				{% else %}
+					<a class="p-2 text-warning" href="{% url 'login' %}">Login</a>
+					
+					<a class="btn text-warning btn-outline-primary" href="{% url 'register' %}">Register</a>
+				{% endif %}	
+			</nav>
+		</div>
+	</div>
+	<!-- END MEDIUM+ SCREENS -->
+
+	<!-- SMALL SCREENS -->
+	<div class="d-flex d-md-none flex-column my-auto align-items-center">
+		<h5 class="font-weight-normal">
+		<a class="p-2 text-warning" href="{% url 'home' %}">Home</a>
+		</h5>
+		<form class="search-bar justify-content-start" >
+			<input type="text" class="form-control" name="q" id="id_q_small" placeholder="Search...">
+		</form>
+		<div class="d-flex flex-row-reverse flex-grow-1">
+			<nav class="">
+				{% if request.user.is_authenticated %}
+				<div class="dropdown dropleft p-2 mt-2">
+					<div class="d-flex flex-row">
+						<div class="btn-group dropleft">
+							<img class="account-image rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" src="{{request.user.profile_image.url}}" alt="codingwithmitch logo" width="40" height="40">
+							<div class="dropdown-menu" aria-labelledby="id_profile_links">
+								<a class="dropdown-item" href="{% url 'password_change' %}">Change pwd</a>
+								<a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% else %}
+					<a class="p-2 text-dark" href="{% url 'login' %}">Login</a>
+					<a class="btn btn-outline-primary m-2" href="{% url 'register' %}">Register</a>
+				{% endif %}	
+			</nav>
+	  	</div>
+	</div>
+	<!-- END SMALL SCREENS -->
+</div>
+
+  <!-- </div> -->
+  </div>
+ 
+
+ <!-- insert scripts here -->
+ <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
