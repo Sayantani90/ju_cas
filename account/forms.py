@@ -1,8 +1,10 @@
 from django import forms
 from django.forms import Form, ModelForm, DateField, widgets
+from django.forms.widgets import NumberInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 from django.forms import ModelChoiceField
+
 import uuid
 from account.models import Account,Department
 
@@ -126,8 +128,11 @@ class AccountUpdateForm(forms.ModelForm):
         self.fields['Department'].required = True
         self.fields['Designation'].empty_label = "Select"
         self.fields['Designation'].required = True        
-        self.fields['gender'].required = True
+        self.fields['gender'].required = True        
         self.fields['email'].widget.attrs['readonly'] = True
+
+
+
 
 class AccountCasForm(forms.ModelForm):
     class Meta:
@@ -135,11 +140,10 @@ class AccountCasForm(forms.ModelForm):
         # fields = "__all__"
         fields = ('username', 'parent', 'dt_ob', 'catg','Department','Designation',
                   'agp', 'dt_last_promo','dt_eligibility','addr_corres', 'addr_perm',
-                  'mobile','email', 'from_dsg', 'to_dsg'
+                  'mobile','email', 'from_dsg', 'to_dsg','is_carry'
                   
                   )
-        prepopulated_fields = {'addr_perm':('addr_corres',)}
-        
+               
         widgets = {
             'username'      : widgets.TextInput(attrs={'style': 'width:400px;text-transform:uppercase'}),                        
             'parent'        : widgets.TextInput(attrs={'style': 'width:400px;text-transform:uppercase'}),
@@ -147,13 +151,31 @@ class AccountCasForm(forms.ModelForm):
             'Department'    : widgets.Select(attrs={'style': 'width:400px;height:35px;text-transform:uppercase'}),
             'Designation'   : widgets.Select(attrs={'style': 'width:400px;height:35px;text-transform:uppercase'}),
             'catg'          : widgets.Select(attrs={'style': 'height:35px'}),
-            'addr_corres'   : widgets.Textarea(attrs={'class': 'form-control', 'rows': 3,'style': 'text-transform:uppercase' }),            
+            'addr_corres'   : widgets.Textarea(attrs={'class': 'form-control', 'rows': 3,'id': 'addr_corres','style': 'text-transform:uppercase' }),            
             'addr_perm'     : widgets.Textarea(attrs={'class': 'form-control', 'rows': 3,'style': 'text-transform:uppercase' }),
             'agp'           : widgets.Select(attrs={'style': 'height:35px'}),
             'dt_last_promo' : widgets.DateInput(attrs={'type': 'date'}),
             'dt_eligibility': widgets.DateInput(attrs={'type': 'date'}),
             
-            'mobile'        : widgets.NumberInput(attrs={'max': '10', 'required': True, 'type': 'number',}),
+            'mobile': widgets.NumberInput(attrs={
+                    'id': 'number_field',                    
+                    'style': 'width:190px',
+                    'default': 'blank',                   
+                    'oninput': 'limit_input()'
+                }),
+            
+            'addr_perm'     : widgets.Textarea(attrs={
+                              'class': 'form-control', 'rows': 3,
+                              'style': 'text-transform:uppercase',
+                              'id': 'addr_perm',
+                              'oninput': 'copy_input()'
+                              }),
+            'is_carry' :    widgets.CheckboxInput(attrs={                              
+                              'id': 'chk_box',
+                              'style': 'height:30px',
+                              'oninput': 'check_box()'
+                              }),         
+            
             'email'        : widgets.TextInput(attrs={'style': 'width:400px'}),
         }
         
@@ -173,3 +195,20 @@ class AccountCasForm(forms.ModelForm):
             'email' : 'E-mail Id'
             
         }
+        
+    def __init__(self, *args, **kwargs):
+        super(AccountCasForm,self).__init__(*args, **kwargs)
+       
+        self.fields['username'].widget.attrs['readonly'] = True
+        self.fields['from_dsg'].required = True
+        self.fields['to_dsg'].required = True
+        self.fields['parent'].required = True
+        self.fields['catg'].required = True
+        self.fields['Department'].required = True
+        self.fields['Designation'].required = True
+        self.fields['agp'].required = True
+        self.fields['dt_ob'].required = True
+        self.fields['addr_corres'].required = True
+        self.fields['addr_perm'].required = True
+        self.fields['email'].widget.attrs['readonly'] = True
+        self.fields['mobile'].value = 0 

@@ -25,30 +25,31 @@
 
 	<!-- MEDIUM+ SCREENS -->
 	<div class="d-none d-md-flex flex-row my-auto flex-grow-1 align-items-center">
-<!--  		
+ 		
 		{% if request.user.is_authenticated %}
-			<a href="{% url 'home' %}">
-				<img class="account-image  rounded-circle"  
-				style="width: 90px;" src="{% static 'codingwithmitch/ju_logo.jpg' %}" alt="codingwithmitch logo" width="72" height="40">
+			<a href="#">
+				<img style="width: 90px; margin-left: 400px" src="{% static 'images/ju_logo.png' %}" alt="JU logo">
 		        
 			</a>
 		{% else %}
-			<img class="account-image  rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
-			style="width: 90px;" src="{% static 'codingwithmitch/ju_logo.jpg' %}" alt="codingwithmitch logo" width="72" height="40">
+				<img style="width: 90px;" src="{% static 'images/ju_logo.png' %}" alt="JU logo">	
+			<!-- <img class="account-image  rounded-circle m-auto d-block dropdown-toggle" id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+			style="width: 90px;" src="{% static 'codingwithmitch/ju_logo.jpg' %}" alt="codingwithmitch logo" width="72" height="40"> -->
 		{% endif %}
 
-		 -->
-<!-- 
-		<form class="search-bar justify-content-start">
+		 
+ 
+		<!-- <form class="search-bar justify-content-start">
 			<input type="text" class="form-control" name="q" id="id_q_large" placeholder="Search...">
 		</form> -->
 
 		<div class="navbar-brand" >
 			<!-- <h1 style="padding-top: 25px; line-height : 20px">JU Accreditation Management System</h1> -->
 	
-			    {% if request.user.is_authenticated %}		
+			    {% if request.user.is_authenticated %}
+				   <!-- <img class="float-left" style="width: 100px;" src="{% static 'codingwithmitch/ju_logo.jpg' %}" alt="JU_logo" >		 -->
 				   <h1 style="padding-top: 25px; line-height : 20px">Application for Career Advancement Scheme (CAS)</h1>
-				   <p class="text-center">Welcome, {{ request.user.username }}.</p>
+				   <p class="text-center" style="text-transform: uppercase;text-shadow: 2px 2px 4px #000000;padding-top: 5px;">Welcome, {{ request.user.username }}.</p>
 				{% else %}
 						
 					<h2>Application for Career Advancement Scheme (CAS)</h2>
@@ -63,17 +64,18 @@
 					<div class="dropdown dropleft show p-2">
 						
 						<div class="d-flex flex-row">						
-							<a class="p-2 text-warning" href="{% url 'password_change' %}">Change Password</a>&nbsp&nbsp&nbsp
-							<a class="p-2 text-warning" href="{% url 'account:view' user_id=request.user.id %}">Account</a>
-							<a class="p-2 text-warning" href="{% url 'logout' %}">Logout</a>
+							<a class="p-2 bg-secondary text-white"" href="{% url 'password_change' %}"style="font-size: 120%;">Change Password</a>&nbsp&nbsp&nbsp
+							<a class="p-2 bg-secondary text-white" href="#"></a>
+							<!-- <a class="p-2 text-warning" href="{% url 'account:view' user_id=request.user.id %}">Account</a> -->
+							<a class="p-2 bg-secondary text-white" href="{% url 'logout' %}"style="font-size: 120%;">Logout</a>
 							
 						</div>
 						
 					</div>
 				{% else %}
-					<a class="p-2 text-warning" href="{% url 'login' %}">Login</a>
+					<a class="p-2 bg-secondary text-white" href="{% url 'login' %}">Login now</a>
 					
-					<a class="btn text-warning btn-outline-primary" href="{% url 'register' %}">Register</a>
+					<a class="btn bg-secondary text-white" href="{% url 'register' %}">Register</a>
 				{% endif %}	
 			</nav>
 		</div>

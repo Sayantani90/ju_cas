@@ -1,3 +1,6 @@
+from inspect import modulesbyfile
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
@@ -42,6 +45,9 @@ def get_profile_image_filepath(self, filename):
 def get_default_profile_image():
 	return "codingwithmitch/logo_1080_1080.png"
 
+DEFAULT_RATING = 50
+MAX_RATING = 100
+MIN_RATING = 0
 
 class Account(AbstractBaseUser):
 	email 					= models.EmailField(verbose_name="email", max_length=60, unique=True)
@@ -69,16 +75,17 @@ class Account(AbstractBaseUser):
 	)
 	agp						= models.IntegerField(verbose_name='AGP fig.',choices=AGP_CHOICES, null=True)
 	dt_last_promo			= models.DateField(verbose_name='Date of last promotion',null=True)
-	dt_eligibility			= models.DateField(verbose_name='Date of promo elig',null=True)
+	dt_eligibility			= models.DateField(verbose_name='Date of promo elig',)
 	addr_corres             = models.TextField(verbose_name='Address for corres',max_length=300,null=True,blank=True)
-	addr_perm               = models.SlugField(verbose_name='Address for permanent',max_length=300,null=True,blank=True)
-	mobile                  = models.CharField(max_length=10,null=True,blank=True)
+	addr_perm               = models.TextField(verbose_name='Address for permanent',max_length=300,null=True,blank=True)
+	mobile                  = models.CharField(default="Individual", max_length=10,null=True,blank=True)
 	date_joined				= models.DateField(verbose_name='Date of joining',null=True)
 	last_login				= models.DateTimeField(verbose_name='last login', auto_now=True)
 	is_admin				= models.BooleanField(default=False)
 	is_active				= models.BooleanField(default=True)
 	is_staff				= models.BooleanField(default=False)
 	is_superuser			= models.BooleanField(default=False)
+	is_carry				= models.BooleanField(default=False)
 	profile_image			= models.ImageField(max_length=255, upload_to=get_profile_image_filepath, null=True, blank=True, default=get_default_profile_image)
 	hide_email				= models.BooleanField(default=True)
 	

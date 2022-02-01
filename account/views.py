@@ -180,13 +180,7 @@ def cas_view(request,*args, **kwargs):
         if form.is_valid():
             form.save()
         # return redirect("account:view", pk=account.id)
-        return redirect("home")
-    
-    
-    
-    
-    
-    
+        return redirect("account:view", user_id=account.pk)
         
-        return render(request, "account/cas_register.html", context)
+        
   

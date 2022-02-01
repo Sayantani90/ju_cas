@@ -19,32 +19,35 @@
   .card-signin {
 	  width: 100%;
 	  max-width: 1200px;
-	  padding: 15px;
-	  height: 1200px;
+	  padding: 20px;
+	  height: 1100px;
 	  margin: auto;
   }
   #id_mobile{
-	  max-width: 200px;
+	  max-width: 300px;
   }
   .form-signin input[type="password"] {
     margin-bottom: -1px;
 	margin-top: 5px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-	width:330px;
+	width:350px;
 	height:40px;
   }
   .container{
 	width: 100%;
-	max-width: 1200px;	
+	max-width: 950px;	
 	height: 400px;
-	margin-left: 90px;  
+	margin-left: 50px;  
   }
   th{
-	  width:350px;
+	  width:650px;
   }  
   .table{
-	  width:900px;
+	  width:1000px;
+  }
+  span{
+	  color:red;
   }
 </style>
 
@@ -64,47 +67,48 @@
 
 				 -->
 				<div style="height:35px;width:1133px;background-color:blue" >
-					<h4 style="color:white;text-align:center">Application For Promotion of University Teachers Under CAS</h4>
+					<h4 style="color:white;text-align:center;text-shadow: 2px 2px 4px #000000;">Application For Promotion of University Teachers Under CAS</h4>
 				</div>
 				<br>
 				<div>
-					<h4 >Stage / Designation :&nbsp&nbsp&nbsp&nbsp From : {{form.from_dsg}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp To : {{form.to_dsg}}</h4>
+					<h4 >Stage / Designation<span>*</span> :&nbsp&nbsp&nbsp&nbsp From : {{form.from_dsg}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp To : {{form.to_dsg}}</h4>
 				</div>
 				<br>
 
 				<div style="height:35px;width:1133px;background-color:blue" >
-					<h4 style="color:white;text-align:left">Part A : General Information
+					<h4 style="color:white;text-align:left;padding-left:50px; text-shadow: 2px 2px 4px #000000;"> Part A : General Information
 					</h4>
 				</div>
 				<br>
 				<div class="container">
+					<h4>
 					<table class="table table-striped">						
 						<tr>
-							<th>1. Full Name</th>
+							<th>1. Full Name <span>*</span></th>
 							<td>{{form.username}}</td>
 						</tr>
 						<tr>
-							<th>2. Father's Name / Mother's Name </th>
+							<th>2. Father's Name / Mother's Name <span>*</span></th>
 							<td>{{form.parent}}</td>
 						</tr>
 						<tr>
-							<th>3. Date of Birth</th>
+							<th>3. Date of Birth <span>*</span></th>
 							<td>{{form.dt_ob}}</td>
 						</tr>
 						<tr>
-							<th>4. Category</th>
+							<th>4. Category <span>*</span></th>
 							<td>{{form.catg}}</td>
 						</tr>
 						<tr>
-							<th>5. Department/School</th>
+							<th>5. Department/School <span>*</span></th>
 							<td>{{form.Department}}</td>
 						</tr>
 						<tr>
-							<th>6. Current designation</th>
+							<th>6. Current designation <span>*</span></th>
 							<td>{{form.Designation}}</td>
 						</tr>
 						<tr>
-							<th>7. Academic Grade Pay (AGP)</th>
+							<th>7. Academic Grade Pay (AGP) <span>*</span></th>
 							<td>{{form.agp}}</td>
 						</tr>
 						<tr>
@@ -112,26 +116,47 @@
 							<td>{{form.dt_last_promo}}</td>
 						</tr>
 						<tr>
-							<th>9. Date of eligibility for promotion</th>
+							<th>9. Date of eligibility for promotion <span>*</span></th>
 							<td>{{form.dt_eligibility}}</td>
 						</tr>
 						<tr>
-							<th>10. Address for correspondence</th>
+							<th>10. Address for correspondence <span>*</span></th>
 							<td>{{form.addr_corres}}</td>
 						</tr>
+
+						
 						<tr>
-							<th>11. Permanent Address</th>
+							<th>11. Permanent Address (Same as above) <span>*</span>
+							{{form.is_carry}}</th>
 							<td>{{form.addr_perm}}</td>
 						</tr>
 						<tr>
-							<th>12. Mobile No.</th>
+							<th>12. Mobile No. <span>*</span></th>
 							<td>{{form.mobile}}</td>
 						</tr>
 						<tr>
-							<th>13. E-mail Id</th>
+							<th>13. E-mail Id <span>*</span></th>
 							<td>{{form.email}}</td>
 						</tr>
+						{% for error in field.errors %}
+						<p style="color: red">{{ error }}</p>
+						{% endfor %}
+			
 					</table>
+						
+					<div class="row">
+						<!-- <div class="col-md-6">
+							<button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"></i>
+								Submit</button>
+						</div> -->
+						<div class="col-md-12 text-center">
+							<button type="button" class="btn btn-success btn-block btn-lg "><i class="fas fa-database"></i>
+								Save and Next</button>
+						</div>
+					<div >
+						
+					</div>
+					</h4>
 
 
 <!-- 					
@@ -168,9 +193,8 @@
 					</table> -->
 
 				</div>
-				{% for error in field.errors %}
-				<p style="color: red">{{ error }}</p>
-				{% endfor %}
+				
+				
 
 			</form>	
 		</div>
@@ -178,5 +202,24 @@
 		</div>
 		</div>		
 
+		<script type="text/javascript">
+			function limit_input() {
+				var field = document.getElementById("number_field");
+				var max_length = 10;
+				
+				if (field.value.length > max_length) {
+					field.value = field.value.slice(0, max_length); 
+				}
+				
+			}
+
+			function check_box() {				
+				var field1 = document.getElementById("addr_perm");
+				var field2 = document.getElementById("addr_corres");
+				field1.value = field2.value;
+			}
+
+
+		</script>
 
 {% endblock content %}
