@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAS Document Status</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 30px;
+            font-weight: 800;
+        }
+
+        .header p {
+            color: #666;
+            margin: 5px 0 0 0;
+            font-size: 18px;
+        }
+
+        .table-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .official-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+
+        .official-table thead {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+        }
+
+        .official-table thead th {
+            padding: 16px 12px;
+            text-align: left;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            border-bottom: 3px solid #1a252f;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .official-table tbody tr {
+            border-bottom: 1px solid #e9ecef;
+            transition: background-color 0.2s ease;
+        }
+
+        .official-table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .official-table tbody tr:hover {
+            background-color: #e3f2fd;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .official-table tbody td {
+            padding: 12px;
+            vertical-align: top;
+            border-right: 1px solid #e9ecef;
+        }
+
+        .official-table tbody td:last-child {
+            border-right: none;
+        }
+
+        .sl-no {
+            text-align: center;
+            font-weight: 600;
+            
+            width: 50px;
+        }
+
+        .date {
+            white-space: nowrap;
+            color: #495057;
+            width: 100px;
+        }
+
+        .name {
+            font-weight: 500;
+            color: #2c3e50;
+            min-width: 150px;
+        }
+
+        .dept {
+            color: #6c757d;
+            
+            min-width: 120px;
+        }
+
+        .status {
+            font-weight: 500;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .status.completed {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.scrutinized {
+            background-color: #cce5ff;
+            color: #004085;
+            border: 1px solid #99d6ff;
+        }
+
+        .status.ongoing {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .received-from {
+            
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                margin: 10px;
+            }
+            
+            .official-table {
+                font-size: 11px;
+            }
+            
+            .official-table thead th,
+            .official-table tbody td {
+                padding: 8px 6px;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            font-size: 18px;
+            color: #131340;
+        }
+		.ft_font{
+			font-weight: 700;
+		}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CAS Document Status</h1>
+        <p>Documents received at IQAC Office from February 2025</p>
+    </div>
+
+    <div class="table-container">
+        <table class="official-table">
+            <thead>
+                <tr>
+                    <th class="sl-no">Sl. No</th>
+                    <th>Date Received</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Document Type</th>
+                    <th>Received From</th>
+                    <th>Status</th>
+                    <th>Date of Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="sl-no">1</td>
+                    <td class="date">07.03.2025</td>
+                    <td class="name">Kaushik Mukherjee</td>
+                    <td class="dept">Pharma</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">08.05.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">2</td>
+                    <td class="date">18.03.2025</td>
+                    <td class="name">Sachindra Nath Das</td>
+                    <td class="dept">Instru. Sc.</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">26.05.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">3</td>
+                    <td class="date">19.03.2025</td>
+                    <td class="name">Arpitam Chatterjee</td>
+                    <td class="dept">Printing</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">26.05.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">4</td>
+                    <td class="date">20.03.2025</td>
+                    <td class="name">Narayan Roy</td>
+                    <td class="dept">Civil</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">26.05.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">5</td>
+                    <td class="date">23.03.2025</td>
+                    <td class="name">Anirban Mitra</td>
+                    <td class="dept">Mechanical</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">26.05.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">6</td>
+                    <td class="date">24.03.2025</td>
+                    <td class="name">Chandan Maity</td>
+                    <td class="dept">Physics</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">13.06.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">7</td>
+                    <td class="date">25.03.2025</td>
+                    <td class="name">Parthasarathi Satvaya</td>
+                    <td class="dept">School of Illumination Sc</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">16.06.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">8</td>
+                    <td class="date">08.04.2025</td>
+                    <td class="name">Dr. Sudeshna Saha</td>
+                    <td class="dept">Chemical Engineering</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">13.06.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">9</td>
+                    <td class="date">23.04.2025</td>
+                    <td class="name">Pratyusha Rakshit</td>
+                    <td class="dept">ETCE</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">13.06.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">10</td>
+                    <td class="date">23.05.2025</td>
+                    <td class="name">Mehabub Rahaman</td>
+                    <td class="dept">Chemical Engineering</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">21.07.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">11</td>
+                    <td class="date">28.05.2025</td>
+                    <td class="name">Ankush Majumdar</td>
+                    <td class="dept">Civil</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">02.07.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">12</td>
+                    <td class="date">29.05.2025</td>
+                    <td class="name">Shilpi Naskar</td>
+                    <td class="dept">Printing</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">14.08.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">13</td>
+                    <td class="date">30.05.2025</td>
+                    <td class="name">Suman Kalyan Das</td>
+                    <td class="dept">Mechanical</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">02.07.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">14</td>
+                    <td class="date">16.06.2025</td>
+                    <td class="name">Santosh Biswas</td>
+                    <td class="dept">Maths</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">21.07.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">15</td>
+                    <td class="date">17.06.2025</td>
+                    <td class="name">Piyali Basak</td>
+                    <td class="dept">School of Bio Sc and Engineering</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">22.07.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">16</td>
+                    <td class="date">18.06.2025</td>
+                    <td class="name">Sathi Banerjee</td>
+                    <td class="dept">Metallurgical and Material Engg</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">21.07.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">17</td>
+                    <td class="date">04.07.2025</td>
+                    <td class="name">Susanta Chaudhuri</td>
+                    <td class="dept">Geology</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">19.08.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">18</td>
+                    <td class="date">18.07.2025</td>
+                    <td class="name">Tohida Rehman</td>
+                    <td class="dept">IT</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">26.08.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">19</td>
+                    <td class="date">29.07.2025</td>
+                    <td class="name">Sahinur Reja</td>
+                    <td class="dept">Physics</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status completed">Scrutinized</span></td>
+                    <td class="date">12.08.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">20</td>
+                    <td class="date">01.08.2025</td>
+                    <td class="name">Rabindranath Gayen</td>
+                    <td class="dept">Physics</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">18.09.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">21</td>
+                    <td class="date">05.08.2025</td>
+                    <td class="name">Satyadeep Waiba</td>
+                    <td class="dept">Chemistry</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">18.09.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">22</td>
+                    <td class="date">07.08.2025</td>
+                    <td class="name">Ranu Biswas</td>
+                    <td class="dept">Pharmacy</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">18.09.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">23</td>
+                    <td class="date">13.08.2025</td>
+                    <td class="name">Shyamal Roy</td>
+                    <td class="dept">Chemical Engineering</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status scrutinized">Scrutinized and sent to Registrar</span></td>
+                    <td class="date">18.09.2025</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">24</td>
+                    <td class="date">20.08.2025</td>
+                    <td class="name">Mita Howladar</td>
+                    <td class="dept">Education</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status ongoing">Processing Ongoing</span></td>
+                    <td class="date">-</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">25</td>
+                    <td class="date">26.08.2025</td>
+                    <td class="name">Arup Bhattacharya</td>
+                    <td class="dept">IR</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status ongoing">Processing Ongoing</span></td>
+                    <td class="date">-</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">26</td>
+                    <td class="date">28.08.2025</td>
+                    <td class="name">Sanchita Mondal</td>
+                    <td class="dept">Pharmacy</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status ongoing">Processing Ongoing</span></td>
+                    <td class="date">-</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">27</td>
+                    <td class="date">01.09.2025</td>
+                    <td class="name">Simontini Das</td>
+                    <td class="dept">Economics</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status ongoing">Processing Ongoing</span></td>
+                    <td class="date">-</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">28</td>
+                    <td class="date">12.09.2025</td>
+                    <td class="name">Rilina Basu</td>
+                    <td class="dept">Economics</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status ongoing">Processing Ongoing</span></td>
+                    <td class="date">-</td>
+                </tr>
+                <tr>
+                    <td class="sl-no">29</td>
+                    <td class="date">15.09.2025</td>
+                    <td class="name">Bhagaban Behera</td>
+                    <td class="dept">IR</td>
+                    <td>New Application for processing</td>
+                    <td class="received-from">Via email</td>
+                    <td><span class="status ongoing">Processing Ongoing</span></td>
+                    <td class="date">-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer">
+        <p><span class="ft_font">Total Applications:</span> 29 | <span class="ft_font">Scrutinized:</span> 1 | <span class="ft_font">Scrutinized and Processed:</span> 22 | <span class="ft_font">Ongoing:</span> 5</p>
+        <p>Last Updated: September 2025</p>
+    </div>
+</body>
+</html>
