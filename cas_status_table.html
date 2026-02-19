@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -175,6 +174,66 @@
 		    max-width: 100%;
 		}
 
+        /* Search & Filter Bar */
+        .controls-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 220px;
+        }
+        .search-wrapper svg {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            pointer-events: none;
+        }
+        #searchInput {
+            width: 100%;
+            padding: 10px 12px 10px 38px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        #searchInput:focus { border-color: #2c3e50; }
+
+        #statusFilter {
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            background: white;
+            cursor: pointer;
+        }
+        #resultCount {
+            font-size: 13px;
+            color: #6c757d;
+            white-space: nowrap;
+        }
+
+        /* Sortable headers */
+        .official-table thead th {
+            cursor: pointer;
+            user-select: none;
+        }
+        .official-table thead th.sort-asc::after  { content: " ▲"; font-size: 11px; opacity: 0.8; }
+        .official-table thead th.sort-desc::after { content: " ▼"; font-size: 11px; opacity: 0.8; }
+        .official-table thead th:hover { background: rgba(255,255,255,0.15); }
+
+        /* No results row */
+        #noResults { display: none; text-align: center; padding: 24px; color: #999; font-size: 15px; }
+
         .footer {
             text-align: center;
             margin-top: 20px;
@@ -204,6 +263,22 @@
     <div class="header">
         <h1>CAS Document Status</h1>
         <p>Documents received at IQAC Office from February 2025</p>
+    </div>
+
+    <div class="controls-bar">
+        <div class="search-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+            </svg>
+            <input type="text" id="searchInput" placeholder="Search by name, department, status…">
+        </div>
+        <select id="statusFilter">
+            <option value="">All Statuses</option>
+            <option value="scrutinized">Scrutinized and sent to Registrar</option>
+            <option value="completed">Scrutinized</option>
+            <option value="ongoing">Processing Ongoing</option>
+        </select>
+        <span id="resultCount"></span>
     </div>
 
     <div class="table-container">
@@ -722,14 +797,97 @@
                     <td><span class="status ongoing">Processing Ongoing</span></td>
                     <td class="date">-</td>
                 </tr>
-            </tbody>
+                <tr id="noResults"><td colspan="8">No matching records found.</td></tr>
+
+</tbody>
         </table>
     </div>
+
 
     <div class="footer">
         <p><span class="ft_font">Total Applications:</span> 50 | <span class="ft_font" style="color:#155724;background-color: #d4edda;">Scrutinized:</span> 5 | <span class="ft_font" style="color:#004085;background-color: #cce5ff;">Scrutinized and Processed:</span> 42 | <span class="ft_font" style="color:#856404;background-color: #fff3cd;">Ongoing:</span> 3</p>
         <p>Last Updated: February 2026</p>
     </div>
+
+    <script>
+    (function () {
+        const table   = document.querySelector('.official-table');
+        const tbody   = table.querySelector('tbody');
+        const headers = table.querySelectorAll('thead th');
+        const noRes   = document.getElementById('noResults');
+        const countEl = document.getElementById('resultCount');
+
+        const dateColIdx = [1, 7];
+
+        function parseDate(str) {
+            const parts = str.trim().split('.');
+            if (parts.length !== 3) return 0;
+            return new Date(parts[2], parts[1] - 1, parts[0]).getTime();
+        }
+
+        let sortCol = -1, sortDir = 1;
+
+        headers.forEach((th, colIdx) => {
+            th.addEventListener('click', () => {
+                if (sortCol === colIdx) sortDir *= -1;
+                else { sortCol = colIdx; sortDir = 1; }
+
+                headers.forEach(h => h.classList.remove('sort-asc','sort-desc'));
+                th.classList.add(sortDir === 1 ? 'sort-asc' : 'sort-desc');
+
+                const rows = Array.from(tbody.querySelectorAll('tr:not(#noResults)'));
+                rows.sort((a, b) => {
+                    const aText = (a.cells[colIdx]?.innerText || '').trim();
+                    const bText = (b.cells[colIdx]?.innerText || '').trim();
+                    let cmp;
+                    if (dateColIdx.includes(colIdx)) {
+                        cmp = parseDate(aText) - parseDate(bText);
+                    } else if (!isNaN(aText) && !isNaN(bText) && aText !== '' && bText !== '') {
+                        cmp = Number(aText) - Number(bText);
+                    } else {
+                        cmp = aText.localeCompare(bText);
+                    }
+                    return cmp * sortDir;
+                });
+                rows.forEach(r => tbody.appendChild(r));
+                updateCount();
+            });
+        });
+
+        const searchInput  = document.getElementById('searchInput');
+        const statusFilter = document.getElementById('statusFilter');
+
+        function filterRows() {
+            const q      = searchInput.value.trim().toLowerCase();
+            const status = statusFilter.value;
+            const rows   = tbody.querySelectorAll('tr:not(#noResults)');
+            let visible  = 0;
+
+            rows.forEach(row => {
+                const text        = row.innerText.toLowerCase();
+                const statusSpan  = row.querySelector('.status');
+                const matchText   = !q || text.includes(q);
+                const matchStatus = !status || (statusSpan && statusSpan.classList.contains(status));
+                const show = matchText && matchStatus;
+                row.style.display = show ? '' : 'none';
+                if (show) visible++;
+            });
+
+            noRes.style.display = visible === 0 ? 'table-row' : 'none';
+            updateCount(visible, rows.length);
+        }
+
+        function updateCount(vis, total) {
+            const rows = tbody.querySelectorAll('tr:not(#noResults)');
+            const v = (vis !== undefined) ? vis : Array.from(rows).filter(r => r.style.display !== 'none').length;
+            const t = total || rows.length;
+            countEl.textContent = (v === t) ? `${t} entries` : `${v} of ${t} entries`;
+        }
+
+        searchInput.addEventListener('input', filterRows);
+        statusFilter.addEventListener('change', filterRows);
+        updateCount();
+    })();
+    </script>
 </body>
 </html>
-
